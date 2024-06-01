@@ -1,0 +1,7 @@
+apps:
+  - name: awair
+    schedule: "*/1 * * * *" # Every minute
+
+# - name: <app>
+#   schedule: '*/15 * * * *' # Every 15 minutes
+#   devices: [<device>] # If you have multiple Tidbyts defined in devices.yml, you can optionally filter them by name.

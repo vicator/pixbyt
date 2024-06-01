@@ -1,0 +1,18 @@
+jobs:
+  - name: awair
+    tasks:
+      - tap-pixlet--awair target-tidbyt
+  - name: awair--webp
+    tasks:
+      - tap-pixlet--awair target-webp
+
+plugins:
+  extractors:
+    - name: tap-pixlet--awair
+      inherit_from: tap-pixlet
+      pip_url: git+https://github.com/DouweM/tap-pixlet.git -r apps/awair/requirements.txt
+      config:
+        path: apps/awair
+        app_config:
+          ip_address: $AWAIR_IP_ADDRESS
+          celcius: $AWAIR_IS_CELCIUS

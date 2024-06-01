@@ -76,6 +76,14 @@ temp_color_map = [
     {"range": 0, "color": red},
 ]
 
+voc_color_map = [
+    {"range": 3000, "color": red},
+    {"range": 1500, "color": orange},
+    {"range": 500, "color": yellow_orange},
+    {"range": 300, "color": yellow},
+    {"range": 0, "color": green},
+]
+
 pm_color_map = [
     {"range": 75, "color": red},
     {"range": 55, "color": orange},
@@ -94,6 +102,11 @@ def get_color(score, color_map):
 
     return default
 
+def get_heading_and_data(heading, data):
+    totalWidth = 8
+    remainingWidth = 8 - len(heading) - len(data)
+    
+    return heading + (" " * remainingWidth) + data
 
 def main(config):
     celsius = config.bool("celsius", False)
@@ -128,23 +141,27 @@ def main(config):
                         child=render.Column(
                             children=[
                                 render.Text(
-                                    content="Temp "
-                                    + str(temperature)[0:2],
+                                    content=get_heading_and_data("Temp", str(temperature)[0:2]),
                                     font="tb-8",
                                     color=get_color(data["temp"], temp_color_map),
                                 ),
+                                #render.Text(
+                                #    content="RH    " + str(data["humid"])[0:2],
+                                #    font="tb-8",
+                                #    color=get_color(data["humid"], rh_color_map),
+                                #),
                                 render.Text(
-                                    content="RH    " + str(data["humid"])[0:2],
+                                    content=get_heading_and_data("CO2", str(data["co2"])),
                                     font="tb-8",
-                                    color=get_color(data["humid"], rh_color_map),
+                                    color=get_color(data["co2"], co2_color_map),
                                 ),
                                 render.Text(
-                                    content="CO2 " + str(data["co2"]),
+                                    content=get_heading_and_data("VOC", str(data["voc"])),
                                     font="tb-8",
-                                    color=get_color(400, co2_color_map),
+                                    color=get_color(data["voc"], voc_color_map),
                                 ),
                                 render.Text(
-                                    content="PM25  " + str(data["pm25"]),
+                                    content=get_heading_and_data("PM25", str(data["pm25"])),
                                     font="tb-8",
                                     color=get_color(data["pm25"], pm_color_map),
                                 ),
